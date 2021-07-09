@@ -2,18 +2,20 @@
 
   <head>
 
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- get axios -->
-    <script src='https://unpkg.com/axios@0.21.1/dist/axios.min.js'></script>
-    <!-- Leaflet.js mapping libraries -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <!-- Erik Flower's weather icons -->
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css'>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- get axios -->
+  <script src='https://unpkg.com/axios@0.21.1/dist/axios.min.js'></script>
+  <!-- Leaflet.js mapping libraries -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <!-- Erik Flower's weather icons -->
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css'>
+  <!-- chart.js import -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
     <style>
       #wicon {
@@ -29,7 +31,7 @@
   <body>
     <nav>
       <div class="nav-wrapper blue lighten-1 white-text">
-        <a href="http://www.cnn.com" class="brand-logo pink-text text-accet-2" style="margin-left:10px;">
+        <a href="http://www.cnn.com" class="brand-logo pink-text text-accent-2" style="margin-left:10px;">
           <i class="large material-icons">adb</i>
         </a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -67,7 +69,7 @@
         <div class="card blue darken-3">
           <div class="card-content white-text">
             <span class="card-title">Map</span>
-            <div id='map' style="width:100%; height:60%"></div>
+            <div id='map' style="width:100%; height:75%"></div>
           </div>
         </div>
       </div> <!-- end of 2nd card -->

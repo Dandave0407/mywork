@@ -30,9 +30,9 @@
 
   <body>
     <nav>
-      <div class="nav-wrapper blue lighten-1 white-text">
-        <a href="http://www.cnn.com" class="brand-logo pink-text text-accent-2" style="margin-left:10px;">
-          <i class="large material-icons">adb</i>
+      <div class="nav-wrapper blue white-text">
+        <a href="http://www.cnn.com" class="brand-logo white-text" style="margin-left:10px;">
+          <i class="large material-icons"><i class="wi wi-night-sleet"></i></i>Dashboard
         </a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="sass.html">Sass</a></li>
@@ -81,7 +81,7 @@
         <div class="col s12 m6">
           <div class="card">
             <div class="card-content">
-              <span class="card-title">Line Graph</span>
+              <span class="card-title">Daily Temperatures</span>
               <canvas id="line-chart" width="100%" height="45%"></canvas>
             </div>
           </div>
@@ -185,8 +185,6 @@
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
-
-      L.circle([lat,lon],{color:'red',radius:200}).addTo(map).bindPopup('<h6>' + city + '</h6>');
 
       L.marker([lat, lon],{color:'red'}).addTo(map)
           .bindPopup('<h6>' + city + '</h6>')

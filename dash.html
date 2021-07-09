@@ -98,54 +98,59 @@
 
   <script>
 
-    axios.get('https://ipapi.co/json/')
-      .then(response => {
-        console.log(response.data);
-        var lat = response.data.latitude;
-        var lon = response.data.longitude;
-        var city = response.data.city;
-        geoData(response.data);
-        var wstring = 'https://www.7timer.info/bin/civillight.php?lon=' + lon + '&lat=' + lat + '&unit=metric&output=json';
-        weatherData(wstring);
-        mapIt(lat,lon,city);
-      })
+  axios.get('https://ipapi.co/json/')
+    .then(response => {
+      console.log(response.data);
+      var lat = response.data.latitude;
+      var lon = response.data.longitude;
+      var city = response.data.city;
+      geoData(response.data);
+      var wstring = 'https://www.7timer.info/bin/civillight.php?lon=' + lon + '&lat=' + lat + '&unit=metric&output=json';
+      weatherData(wstring);
+      mapIt(lat,lon,city);
+    })
 
-    function barChart(wdata){
-      // Bar chart
-      var labs = [];
-      var winds = [];
-
-      for(i=0;i<wdata.length;i++){
-        labs.push(wdata[i].date);
-        winds.push(wdata[i].wind10m_max);
+      function barChart(wdata) {
+        // Bar chart
+        var labs = [];
+        var winds = [];
+        for (i=0;i<wdata.length;i++) {
+          labs.push(wdata[i].date);
+          winds.push(wdata[i].wind10m_max);
+        }
+        new Chart(document.getElementById("bar-chart"), {
+            type: 'bar',
+            data: {
+              labels: labs,
+              datasets: [
+                {
+                  label: "Wind speed",
+                  backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                  data: winds
+                }
+              ]
+            },
+            options: {
+              legend: { display: false },
+              title: {
+                display: false,
+                text: ''
+              }
+            }
+        });
       }
 
-      new Chart(document.getElementById("bar-chart"), {
-          type: 'bar',
-          data: {
-            labels: labs,
-            datasets: [
-              {
-                label: "Wind speed",
-                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-                data: winds
-              }
-            ]
-          },
-      });
-    }
-
-    function lineGraph(wdata){
+    function lineGraph(wdata) {
 
       var labs = [];
       var highs = [];
       var lows = [];
-
-      for(i=0;i<wdata.length;i++){
+      for (i=0;i<wdata.length;i++) {
         labs.push(wdata[i].date);
         highs.push(wdata[i].temp2m.max);
         lows.push(wdata[i].temp2m.min);
       }
+
       new Chart(document.getElementById("line-chart"), {
         type: 'line',
         data: {
@@ -179,12 +184,12 @@
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
 
-      //L.circle([lat,lon],{color:'red',radius:200}).addTo(map).bindPopup('<h6>' + city + '</h6>');
-      L.marker([lat,lon]).addTo(map)
+      L.circle([lat,lon],{color:'red',radius:200}).addTo(map).bindPopup('<h6>' + city + '</h6>');
+
+      L.marker([lat, lon],{color:'red'}).addTo(map)
           .bindPopup('<h6>' + city + '</h6>')
           .openPopup();
     }
-
     function geoData(response) {
       var gHandle = document.getElementById('geo');
       gHandle.innerHTML = response.city;
@@ -197,9 +202,9 @@
           var w = response.data.dataseries[0];
           var gHandle = document.getElementById('weather');
           var myHTML = "<p>Todays weather is " + w.weather + "</p>";
-          myHTML = myHTML + "<div id='wicon'<i class='wi wi-day-cloudy'></i>  " + w.temp2m.max + "</div>";
+          myHTML = myHTML + "<div id='wicon'><i class='wi wi-day-cloudy'></i>  " + w.temp2m.max + "</div>";
           gHandle.innerHTML = myHTML;
-          lineGraph(response.data.dataseries)
+          lineGraph(response.data.dataseries);
           barChart(response.data.dataseries);
         })
     }

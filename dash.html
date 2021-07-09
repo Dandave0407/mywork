@@ -21,7 +21,7 @@
         font-size: 40px;
       }
       .card {
-        height:300px;
+        height:400px;
       }
     </style>
   </head>
@@ -79,18 +79,16 @@
         <div class="col s12 m6">
           <div class="card blue darken-3">
             <div class="card-content white-text">
-              <span class="card-title">Bar Graph</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
+              <span class="card-title">Line Graph</span>
+              <canvas id="line-chart" width="100%" height="75%"></canvas>
             </div>
           </div>
         </div> <!-- end of 3rd card -->
         <div class="col s12 m6">
           <div class="card blue darken-3">
             <div class="card-content white-text">
-              <span class="card-title">Pie Chart</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
+              <span class="card-title">Wind Speed</span>
+              <canvas id="pie-chart" width="100%" height="55%"></canvas>
             </div>
           </div>
         </div> <!-- end of 4th card -->
@@ -111,6 +109,68 @@
         weatherData(wstring);
         mapIt(lat,lon,city);
       })
+
+    function barChart(wdata){
+      // Bar chart
+      var labs = [];
+      var winds = [];
+
+      for(i=0;i<wdata.length;i++){
+        labs.push(wdata[i].date);
+        winds.push(wdata[i].wind10m_max);
+      }
+
+      new Chart(document.getElementById("bar-chart"), {
+          type: 'bar',
+          data: {
+            labels: labs,
+            datasets: [
+              {
+                label: "Wind speed",
+                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                data: winds
+              }
+            ]
+          },
+      });
+    }
+
+    function lineGraph(wdata){
+
+      var labs = [];
+      var highs = [];
+      var lows = [];
+
+      for(i=0;i<wdata.length;i++){
+        labs.push(wdata[i].date);
+        highs.push(wdata[i].temp2m.max);
+        lows.push(wdata[i].temp2m.min);
+      }
+      new Chart(document.getElementById("line-chart"), {
+        type: 'line',
+        data: {
+          labels: labs,
+          datasets: [{
+              data: highs,
+              label: "Highs",
+              borderColor: "#3e95cd",
+              fill: false
+            }, {
+              data: lows,
+              label: "Lows",
+              borderColor: "#8e5ea2",
+              fill: false
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: false,
+            text: ''
+          }
+        }
+      });
+    }
 
     function mapIt(lat,lon,city) {
       var map = L.map('map').setView([lat, lon], 13);
@@ -139,6 +199,8 @@
           var myHTML = "<p>Todays weather is " + w.weather + "</p>";
           myHTML = myHTML + "<div id='wicon'<i class='wi wi-day-cloudy'></i>  " + w.temp2m.max + "</div>";
           gHandle.innerHTML = myHTML;
+          lineGraph(response.data.dataseries)
+          barChart(response.data.dataseries);
         })
     }
 
